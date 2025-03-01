@@ -1,8 +1,14 @@
 package services;
 
 import models.MusicItem;
+import models.MusicItemFactory;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
+import java.util.Scanner;
 
 public class MusicLibrary {
     private List<MusicItem> items = new ArrayList<>();
@@ -129,4 +135,48 @@ public class MusicLibrary {
         currentlyPlaying = null;
         System.out.println("La bibliothèque a été vidée.");
     }
+
+    public void saveToCSV(String filename) {
+        if (filename.isEmpty()) {
+            filename = "data/POOphonia.csv"; // Fichier par défaut
+        }
+
+        try (FileWriter writer = new FileWriter(filename)) {
+            for (MusicItem item : items) {
+                writer.write(item.toCSV() + "\n");
+            }
+            System.out.println("Bibliothèque sauvegardée dans : " + filename);
+        } catch (IOException e) {
+            System.out.println("Erreur lors de la sauvegarde : " + e.getMessage());
+        }
+    }
+
+    public void loadFromCSV(String filename) {
+        if (filename.isEmpty()) {
+            filename = "data/POOphonia.csv"; // Fichier par défaut
+        }
+
+        File file = new File(filename);
+        if (!file.exists()) {
+            System.out.println("Fichier non trouvé : " + filename);
+            return;
+        }
+
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine().trim();
+                MusicItem item = MusicItemFactory.createMusicItem(line);
+                if (item != null) {
+                    items.add(item);
+                }
+            }
+            System.out.println("Bibliothèque chargée depuis : " + filename);
+        } catch (IOException e) {
+            System.out.println("Erreur lors du chargement : " + e.getMessage());
+        }
+    }
 }
+
+
+
+

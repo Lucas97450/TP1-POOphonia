@@ -40,6 +40,8 @@ public class CommandProcessor {
         commands.put("SOURCE", new SourceCommand());
         commands.put("EXIT", new ExitCommand());
         commands.put("SEARCH", new SearchCommand());
+        commands.put("SAVE", new SaveCommand());
+        commands.put("LOAD", new LoadCommand());
     }
 
     /**
@@ -197,4 +199,20 @@ public class CommandProcessor {
         }
     }
 
+    private class SaveCommand implements Command {
+        @Override
+        public void execute(String args) {
+            library.saveToCSV(args.isEmpty() ? "data/POOphonia.csv" : args);
+        }
+    }
+
+    private class LoadCommand implements Command {
+        @Override
+        public void execute(String args) {
+            library.loadFromCSV(args.isEmpty() ? "data/POOphonia.csv" : args);
+        }
+    }
+
 }
+
+
