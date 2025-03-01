@@ -32,8 +32,12 @@ public class POOphonia {
         // Initialize the music library
         MusicLibrary library = new MusicLibrary();
 
+        // Initialize the processor
+        CommandProcessor processor = new CommandProcessor(library);
+
+
         // Process commands from the default data/commands.txt file
-        CommandProcessor.processCommands("SOURCE commands.txt");
+        CommandProcessor.processCommand( "SOURCE commands.txt" );
 
         // Save the library to the default file data/POOphonia.csv file
 //        library.save( "" );
