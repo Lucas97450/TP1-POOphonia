@@ -37,7 +37,7 @@ public class POOphonia {
 
 
         // Process commands from the default data/commands.txt file
-        CommandProcessor.processCommand( "SOURCE commands.txt" );
+        CommandProcessor.processCommand("SOURCE ");
 
         // Save the library to the default file data/POOphonia.csv file
 //        library.save( "" );
