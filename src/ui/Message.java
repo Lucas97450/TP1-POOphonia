@@ -1,8 +1,5 @@
 package ui;
 
-<<<<<<< HEAD
-public class Message {
-=======
 /**
  * Utility class for sending messages to the console.
  *
@@ -25,5 +22,4 @@ public class Message {
     public static void send( String s ) {
         System.out.println( s );
     }
->>>>>>> 8ddaad4 (Probleme CLEAR, LOAD, Play apres un SEARCH)
 }

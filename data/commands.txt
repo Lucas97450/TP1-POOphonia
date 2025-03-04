@@ -9,20 +9,12 @@ ADD album,4,The Dark Side of the Moon,1973,Pink Floyd,Harvest Capitol,10
 ADD podcast,5,Tech Talk,2023,Jane Doe,Technology,42
 ADD podcast,6,Science Weekly,2022,John Smith,Science,24
 
-
-# Sauvegarder la bibliothèque en CSV
-SAVE
-
 # Listing all items (Expect: 6 items displayed)
 LIST
 
 # Searching for a specific song by ID (Expect: Imagine by John Lennon)
 SEARCH 1
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 8ddaad4 (Probleme CLEAR, LOAD, Play apres un SEARCH)
 # Searching for a song that does not exist (Expect: Not found)
 SEARCH 99
 
@@ -64,10 +56,6 @@ PLAY 2
 
 # Clearing the library before exiting
 CLEAR
-
-# Charger à nouveau la bibliothèque
-LOAD
-LIST
 
 # Exit the program
 EXIT

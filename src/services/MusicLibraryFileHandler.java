@@ -1,8 +1,5 @@
 package services;
 
-<<<<<<< HEAD
-public class MusicLibraryFileHandler {
-=======
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -98,5 +95,4 @@ public class MusicLibraryFileHandler {
         }
         return items;
     }
->>>>>>> 8ddaad4 (Probleme CLEAR, LOAD, Play apres un SEARCH)
 }
