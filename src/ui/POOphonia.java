@@ -19,6 +19,10 @@ import services.CommandProcessor;
  * © 2025 POOphonia. All rights reserved.
  */
 public class POOphonia {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8ddaad4 (Probleme CLEAR, LOAD, Play apres un SEARCH)
     /**
      * Main method that starts the POOphonia application.
      *
@@ -27,11 +31,16 @@ public class POOphonia {
     public static void main( String[] args ) {
 
         // Display welcome message
+<<<<<<< HEAD
 //        Message.send( "***** POOphonia: Welcome! *****" );
+=======
+        Message.send( "***** POOphonia: Welcome! *****" );
+>>>>>>> 8ddaad4 (Probleme CLEAR, LOAD, Play apres un SEARCH)
 
         // Initialize the music library
         MusicLibrary library = new MusicLibrary();
 
+<<<<<<< HEAD
         // Initialize the processor
         CommandProcessor processor = new CommandProcessor(library);
 
@@ -46,3 +55,15 @@ public class POOphonia {
 //        Message.send( "***** POOphonia: Goodbye! *****" );
     }
 }
+=======
+        // Process commands from the default data/commands.txt file
+        CommandProcessor.processCommands( library );
+
+        // Save the library to the default file data/POOphonia.csv file
+        library.save( "" );
+
+        // Display exit message
+        Message.send( "***** POOphonia: Goodbye! *****" );
+    }
+}
+>>>>>>> 8ddaad4 (Probleme CLEAR, LOAD, Play apres un SEARCH)

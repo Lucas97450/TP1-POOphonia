@@ -19,6 +19,10 @@ LIST
 # Searching for a specific song by ID (Expect: Imagine by John Lennon)
 SEARCH 1
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8ddaad4 (Probleme CLEAR, LOAD, Play apres un SEARCH)
 # Searching for a song that does not exist (Expect: Not found)
 SEARCH 99
 

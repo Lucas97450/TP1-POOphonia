@@ -1,5 +1,6 @@
 package services;
 
+<<<<<<< HEAD
 import models.MusicItem;
 import models.MusicItemFactory;
 
@@ -216,3 +217,120 @@ public class CommandProcessor {
 }
 
 
+=======
+import services.MusicLibrary;
+import models.MusicItemFactory;
+import models.MusicItem;
+import java.io.*;
+import java.util.HashSet;
+import java.util.Set;
+
+public class CommandProcessor {
+    private static final String DEFAULT_COMMAND_FILE = "data/commands.txt";
+    private static Set<String> sourcedFiles = new HashSet<>(); // Évite les boucles infinies
+
+    /**
+     * Méthode statique pour exécuter les commandes en utilisant MusicLibrary.
+     * @param library Instance de MusicLibrary.
+     */
+    public static void processCommands(MusicLibrary library) {
+        processCommands(library, ""); // Appelle la version avec le fichier par défaut
+    }
+
+    /**
+     * Lit et exécute un fichier de commandes.
+     * @param library La bibliothèque musicale associée.
+     * @param filename Nom du fichier de commandes, ou "" pour `commands.txt`.
+     */
+    public static void processCommands(MusicLibrary library, String filename) {
+        if (filename == null || filename.isEmpty()) {
+            filename = DEFAULT_COMMAND_FILE; // Utiliser `commands.txt` si aucun fichier n'est précisé
+        }
+
+        if (sourcedFiles.contains(filename)) {
+            System.out.println("Currently sourcing " + filename + "; SOURCE ignored.");
+            return;
+        }
+
+        File file = new File(filename);
+        if (!file.exists()) {
+            System.out.println("Sourcing " + filename + " failed; file not found.");
+            return;
+        }
+
+        System.out.println("Sourcing " + filename + "...");
+
+        sourcedFiles.add(filename); // Marquer comme en cours de traitement
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.startsWith("#") || line.trim().isEmpty()) continue;
+                executeCommand(library, line);
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading command file: " + filename);
+        }
+
+        sourcedFiles.remove(filename); // Retirer après exécution
+    }
+
+    /**
+     * Exécute une commande spécifique.
+     * @param library Instance de MusicLibrary.
+     * @param command Ligne de commande.
+     */
+    private static void executeCommand(MusicLibrary library, String command) {
+        String[] parts = command.split(" ", 2);
+        String action = parts[0].toUpperCase();
+
+        try {
+            switch (action) {
+                case "SOURCE":
+                    String fileToSource = parts.length > 1 ? parts[1] : "";
+                    processCommands(library, fileToSource);
+                    break;
+                case "ADD":
+                    library.addItem(MusicItemFactory.createFromCSV(parts[1].split(",")));
+                    break;
+                case "REMOVE":
+                    library.removeItem(Integer.parseInt(parts[1]));
+                    break;
+                case "LIST":
+                    library.listAllItems();
+                    break;
+                case "SEARCH":
+                    if (parts.length < 2) {
+                        System.out.println("Invalid SEARCH command: " + command);
+                        break;
+                    }
+                    // Rechercher un élément (par ID ou "title by artist")
+                    library.searchItem(parts[1]);
+                    break;
+                case "PLAY":
+                    if (parts.length < 2) {
+                        System.out.println("Invalid PLAY command: " + command);
+                        break;
+                    }
+                    library.playItem(String.valueOf(Integer.parseInt(parts[1]))); // ⚠️ Vérifier que playItem existe bien
+                    break;
+                case "LOAD":
+                    library.loadLibrary(parts[1]);
+                    break;
+                case "SAVE":
+                    library.save(""); // ⚠️ Vérifier que `save("")` fonctionne bien dans MusicLibrary
+                    break;
+                case "EXIT":
+                    System.out.println("Exiting program...");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Unknown command: " + command);
+            }
+        } catch (Exception e) {
+            System.out.println("Invalid command: " + command);
+        }
+    }
+}
+
+>>>>>>> 8ddaad4 (Probleme CLEAR, LOAD, Play apres un SEARCH)
